@@ -5,8 +5,13 @@ import (
 	"os"
 	"strconv"
 
+	"strings"
+
 	tg "gopkg.in/telegram-bot-api.v4"
 )
+
+var fwdGroupIP int64 = 430838894
+var privateChats []int64
 
 // AppendIfMissing appends an element to slice if the newElement
 // doesn't already exists, otherwise, returns slice unmodified
@@ -37,9 +42,11 @@ func main() {
 
 	updates, err := bot.GetUpdatesChan(updateCfg)
 
-	fwdGroupIP, err := strconv.ParseInt(os.Getenv("TELEGRAM_GROUP_ID"), 10, 64)
+	fwdGroupIP, err = strconv.ParseInt(os.Getenv("TELEGRAM_GROUP_ID"), 10, 64)
 
-	privateChats := []int64{}
+	if err != nil {
+		log.Panic(err)
+	}
 
 	for update := range updates {
 
