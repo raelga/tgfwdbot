@@ -25,6 +25,18 @@ func AppendIfMissing(slice []int64, newElement int64) []int64 {
 	return append(slice, newElement)
 }
 
+// RemoveIfExisting removes an element from slice if the newElement
+// already exists, otherwise, returns slice unmodified
+func RemoveIfExisting(slice []int64, newElement int64) []int64 {
+
+	for index, element := range slice {
+		if element == newElement {
+			return append(slice[:index], slice[index+1:]...)
+		}
+	}
+	return slice
+}
+
 func main() {
 
 	bot, err := tg.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
@@ -58,8 +70,7 @@ func main() {
 
 		if msg.Chat.Type == "private" {
 
-			privateChats = AppendIfMissing(privateChats, msg.Chat.ID)
-			bot.Send(tg.NewForward(fwdGroupIP, msg.Chat.ID, msg.MessageID))
+			privateMessageHandler(bot, update.Message)
 
 		} else {
 
@@ -69,4 +80,28 @@ func main() {
 
 		}
 	}
+}
+
+func privateMessageHandler(bot *tg.BotAPI, msg *tg.Message) {
+
+	if strings.HasPrefix("/start", msg.Text) {
+
+		privateChats = AppendIfMissing(privateChats, msg.Chat.ID)
+
+		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" started following the group."))
+
+	} else if strings.HasPrefix("/stop", msg.Text) {
+
+		privateChats = RemoveIfExisting(privateChats, msg.Chat.ID)
+
+		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" stopped following the group."))
+
+	} else {
+		_, err := bot.Send(tg.NewForward(fwdGroupIP, msg.Chat.ID, msg.MessageID))
+
+		if err != nil {
+			bot.Send(tg.NewMessage(msg.Chat.ID, "Unable to FWD the message"))
+		}
+	}
+
 }
