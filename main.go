@@ -88,13 +88,13 @@ func privateMessageHandler(bot *tg.BotAPI, msg *tg.Message) {
 
 		privateChats = AppendIfMissing(privateChats, msg.Chat.ID)
 
-		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" started following the group."))
+		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" started following the group in a private chat."))
 
 	} else if strings.HasPrefix("/stop", msg.Text) {
 
 		privateChats = RemoveIfExisting(privateChats, msg.Chat.ID)
 
-		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" stopped following the group."))
+		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" stopped following the group in private chat."))
 
 	} else {
 		_, err := bot.Send(tg.NewForward(fwdGroupIP, msg.Chat.ID, msg.MessageID))
