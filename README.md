@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/raelga/BanMeNotBot.svg?branch=master)](https://travis-ci.org/raelga/BanMeNotBot)
+[![Go Report](https://goreportcard.com/badge/github.com/raelga/BanMeNotBot)](https://goreportcard.com/report/github.com/raelga/BanMeNotBot)
+
 # BanMeNotBot
 
 Bot to allow talking in Telegram supergroups when banned.
