@@ -68,6 +68,10 @@ func main() {
 			continue
 		}
 
+		if msg.Text == "" {
+			continue
+		}
+
 		if strings.HasPrefix("/help", update.Message.Text) {
 			bot.Send(tg.NewMessage(update.Message.Chat.ID, "Code available at https://github.com/raelga/BanMeNotBot."))
 		}
