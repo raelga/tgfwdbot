@@ -11,6 +11,7 @@ import (
 )
 
 var fwdGroupIP int64 = 430838894
+var authorizedUser int
 var privateChats []int64
 
 // AppendIfMissing appends an element to slice if the newElement
@@ -60,6 +61,12 @@ func main() {
 		log.Panic(err)
 	}
 
+	authorizedUser, err = strconv.Atoi(os.Getenv("TELEGRAM_USER_ID"))
+
+	if err != nil {
+		authorizedUser = 0
+	}
+
 	for update := range updates {
 
 		msg := update.Message
@@ -73,6 +80,10 @@ func main() {
 		}
 
 		if msg.Chat.Type == "private" {
+
+			if authorizedUser > 0 && msg.From.ID != authorizedUser {
+				bot.Send(tg.NewMessage(update.Message.Chat.ID, "Not authorized."))
+			}
 
 			privateMessageHandler(bot, update.Message)
 
