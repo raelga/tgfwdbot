@@ -68,11 +68,7 @@ func main() {
 			continue
 		}
 
-		if msg.Text == "" {
-			continue
-		}
-
-		if strings.HasPrefix("/help", update.Message.Text) {
+		if strings.HasPrefix(update.Message.Text, "/help") {
 			bot.Send(tg.NewMessage(update.Message.Chat.ID, "Code available at https://github.com/raelga/BanMeNotBot."))
 		}
 
@@ -92,19 +88,20 @@ func main() {
 
 func privateMessageHandler(bot *tg.BotAPI, msg *tg.Message) {
 
-	if strings.HasPrefix("/start", msg.Text) {
+	if strings.HasPrefix(msg.Text, "/start") {
 
 		privateChats = AppendIfMissing(privateChats, msg.Chat.ID)
 
 		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" started following the group in a private chat."))
 
-	} else if strings.HasPrefix("/stop", msg.Text) {
+	} else if strings.HasPrefix(msg.Text, "/stop") {
 
 		privateChats = RemoveIfExisting(privateChats, msg.Chat.ID)
 
 		bot.Send(tg.NewMessage(fwdGroupIP, msg.From.UserName+" stopped following the group in private chat."))
 
 	} else {
+
 		_, err := bot.Send(tg.NewForward(fwdGroupIP, msg.Chat.ID, msg.MessageID))
 
 		if err != nil {
