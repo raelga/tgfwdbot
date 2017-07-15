@@ -83,9 +83,9 @@ func main() {
 
 			if authorizedUser > 0 && msg.From.ID != authorizedUser {
 				bot.Send(tg.NewMessage(update.Message.Chat.ID, "Not authorized."))
+			} else {
+				privateMessageHandler(bot, update.Message)
 			}
-
-			privateMessageHandler(bot, update.Message)
 
 		} else {
 
