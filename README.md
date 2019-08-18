@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/raelga/BanMeNotBot.svg?branch=master)](https://travis-ci.org/raelga/BanMeNotBot)
-[![Go Report](https://goreportcard.com/badge/github.com/raelga/BanMeNotBot)](https://goreportcard.com/report/github.com/raelga/BanMeNotBot)
+[![Build Status](https://travis-ci.org/raelga/tgfwdbot.svg?branch=master)](https://travis-ci.org/raelga/tgfwdbot)
+[![Go Report](https://goreportcard.com/badge/github.com/raelga/tgfwdbot)](https://goreportcard.com/report/github.com/raelga/tgfwdbot)
 
-# BanMeNotBot
+# tgfwdbot
 
 Bot to allow talking in Telegram supergroups when banned.
 
