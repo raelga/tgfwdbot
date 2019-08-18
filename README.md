@@ -3,7 +3,7 @@
 
 # tgfwdbot
 
-Bot to allow talking in Telegram supergroups when banned.
+Bot to forward back and forward mesages between supergroups and private chats, to allow talking in Telegram supergroups when banned.
 
 ## Why
 
